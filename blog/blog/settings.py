@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'ENTER_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -67,9 +67,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-DRF_RECAPTCHA_SECRET_KEY = ""
+DRF_RECAPTCHA_SECRET_KEY = "ENTER_SECRET_KEY"
 
-DOMAIN = 'x.com:8080'
+DOMAIN = 'ENTER_FROENTED_DOMAIN'
 SITE_NAME = 'Frontend'
 DJOSER = {
 

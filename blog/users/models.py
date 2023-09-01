@@ -7,6 +7,8 @@ from .validators import validate_age
 from django.contrib.contenttypes.fields import GenericRelation
 from hitcount.models import HitCount
 from django.core.validators import MinLengthValidator
+# Create your models here.
+
 
 class CustomUser(AbstractUser):
     email = models.EmailField(
@@ -42,8 +44,8 @@ class Profile(models.Model):
 
         if self.image != None:
             img = Image.open(self.image.path)
-            if img.height > 500 or img.width > 500:
-                img.thumbnail((500, 500))
+            if img.height > 512 or img.width > 512:
+                img.thumbnail((512, 512))
                 img.save(self.image.path)
 
     def hits_count(self):
