@@ -41,7 +41,6 @@ class PostCreateSerializer(serializers.ModelSerializer):
             "tags", 
         )
 
-   
     def create(self,validated_data):
         tags = validated_data.pop('tags')
         validated_data['user'] = self.context['request'].user
@@ -71,7 +70,7 @@ class PostCreateSerializer(serializers.ModelSerializer):
         post.save()
 
         return PostSerializer(post)
-    
+
 
 class PostSerializer(serializers.ModelSerializer):
     category = serializers.StringRelatedField()

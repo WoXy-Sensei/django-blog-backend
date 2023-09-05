@@ -7,7 +7,7 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from rest_framework import authentication, permissions,status
 from .models import Profile
-from .serializers import ProfileSerializer,ProfileCreateSerializer
+from .serializers import ProfileSerializer,ProfileCreateSerializer,UserCreateSerializer
 from django.db.models import Q
 from rest_framework.decorators import authentication_classes, permission_classes
 
@@ -66,3 +66,7 @@ class ProfileMe(APIView):
         profile = Profile.objects.get(user=request.user)
         serializer = ProfileSerializer(profile)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+

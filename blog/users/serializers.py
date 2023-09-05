@@ -1,11 +1,7 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
-from .models import Profile
-
-class CustomUserCreateSerializer(UserCreateSerializer):
-
-    class Meta(UserCreateSerializer.Meta):
-        fields = ('username', 'email','birthdate','password')
+from .models import Profile,CustomUser
+from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 
 
 class ProfileCreateSerializer(serializers.ModelSerializer):
@@ -15,8 +11,6 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         fields = ('name','biography','image')
     
     
-
-
 class ProfileSerializer(serializers.ModelSerializer):
     hits = serializers.IntegerField(source = "hits_count")
 

@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import sys
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ENTER_SECRET_KEY'
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -67,7 +69,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-DRF_RECAPTCHA_SECRET_KEY = "ENTER_SECRET_KEY"
+DRF_RECAPTCHA_SECRET_KEY = os.getenv('CAPTCHA_SECRET_KEY')
+
 
 DOMAIN = 'ENTER_FROENTED_DOMAIN'
 SITE_NAME = 'Frontend'
@@ -80,19 +83,18 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     "USER_CREATE_PASSWORD_RETYPE" : True,
     "PASSWORD_RESET_CONFIRM_RETYPE" : True,
-    'SERIALIZERS': {
-        'user_registration': 'users.serializers.CustomUserCreateSerializer',
-    },
+    'SERIALIZERS': { },
+   
 }
 
 
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TSL = True
-EMAIL_HOST = ''
+EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 ROOT_URLCONF = 'blog.urls'
 
@@ -120,9 +122,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
        'rest_framework.authentication.TokenAuthentication',
-    )
-   
+    ),
+    'NON_FIELD_ERRORS_KEY': 'error',
 }
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -170,9 +173,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
-]
+STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
