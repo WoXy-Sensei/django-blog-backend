@@ -12,7 +12,8 @@ def validate_age(value):
         )
     
 def validate_ref_code(value):
-    if value != None:
+    print(value)
+    if value != "":
         try:
             ProfileModel = apps.get_model('users', 'Profile')
             ProfileModel.objects.get(ref_code = value)

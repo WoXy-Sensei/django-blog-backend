@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
-from django.template.defaultfilters import slugify
+from django.template.defaultfilters import slugify  
 from PIL import Image
 from .validators import validate_age,validate_ref_code
 from django.contrib.contenttypes.fields import GenericRelation
@@ -10,7 +10,7 @@ from django.core.validators import MinLengthValidator
 from .utils import generate_ref_code
 # Create your models here.
 
-
+        
 class CustomUser(AbstractUser):
     email = models.EmailField(
         unique=True, blank=False, null=False
