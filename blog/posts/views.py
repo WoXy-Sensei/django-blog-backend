@@ -46,10 +46,19 @@ class PostListUser(ListAPIView):
         return queryset
 
 
-class PostDetailView(APIView,HitCountMixin):
+class PostDetailByIdView(APIView,HitCountMixin):
 
     def get(self, request, postId, format=None):
         self.object = get_object_or_404(Post, id=postId)
+        hit_count = HitCount.objects.get_for_object(self.object)
+        hit_count = self.hit_count(request, hit_count)  
+        serializer = PostSerializer(self.object)
+        return Response(serializer.data)
+
+class PostDetailBySlugView(APIView,HitCountMixin):
+
+    def get(self, request, postSlug, format=None):
+        self.object = get_object_or_404(Post, slug=postSlug)
         hit_count = HitCount.objects.get_for_object(self.object)
         hit_count = self.hit_count(request, hit_count)  
         serializer = PostSerializer(self.object)
