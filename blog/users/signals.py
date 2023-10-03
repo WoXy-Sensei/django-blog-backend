@@ -8,7 +8,7 @@ from .models import CustomUser,Profile
 def user_activated(sender, instance,created, **kwargs):
     if instance.is_active and instance.first_login:
         profile = Profile.objects.create(user=instance)
-        if instance.ref != "":
+        if instance.ref != None:
             user = Profile.objects.get(ref_code = instance.ref).user
             profile.recommended_by = user
             profile.save()
