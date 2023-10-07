@@ -5,7 +5,7 @@ app_name = "users"
 urlpatterns = [
 
     path('', include('djoser.urls')),
-    path('', include('djoser.urls.authtoken')),
+    path('', include('djoser.urls.jwt')),
     path('profiles',ProfileListView.as_view(),name='profiles_list'),
     path('profiles/me',ProfileMe.as_view(),name='profiles_me'),
     path('profiles/me/update',ProfileUpdateView.as_view(),name='profiles_update'),

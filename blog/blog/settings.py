@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import sys
+from datetime import timedelta
+
 from dotenv import load_dotenv
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,12 +46,11 @@ INSTALLED_APPS = [
     'posts',
     'users',
     'rest_framework',
-    'rest_framework.authtoken',
     "rest_framework_recaptcha",
     'corsheaders',
     'djoser',
     'hitcount',
-    'mptt'
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -85,9 +86,18 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE" : True,
     "PASSWORD_RESET_CONFIRM_RETYPE" : True,
     'SERIALIZERS': { },
+    'TOKEN_MODEL': None,
    
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -122,7 +132,7 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.TokenAuthentication',
+       'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'NON_FIELD_ERRORS_KEY': 'error',
 }
