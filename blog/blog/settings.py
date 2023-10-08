@@ -86,17 +86,12 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE" : True,
     "PASSWORD_RESET_CONFIRM_RETYPE" : True,
     'SERIALIZERS': { },
-    'TOKEN_MODEL': None,
+
    
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('JWT',),
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'USER_ID_FIELD': 'id',
-    'USER_ID_CLAIM': 'user_id',
 }
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")

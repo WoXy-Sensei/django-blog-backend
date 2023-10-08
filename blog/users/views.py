@@ -5,12 +5,12 @@ from rest_framework.pagination import PageNumberPagination
 from django.shortcuts import get_object_or_404
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
-from rest_framework import authentication, permissions,status
+from rest_framework import permissions,status
 from .models import Profile
 from .serializers import ProfileSerializer,ProfileCreateSerializer,UserCreateSerializer
 from django.db.models import Q
 from rest_framework.decorators import authentication_classes, permission_classes
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class ProfileListView(ListAPIView):
     pagination_class = PageNumberPagination
@@ -43,7 +43,7 @@ class ProfileSearchView(ListAPIView):
         return queryset
 
 
-@authentication_classes([authentication.TokenAuthentication])
+@authentication_classes([JWTAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 class ProfileUpdateView(APIView):
 
@@ -58,7 +58,7 @@ class ProfileUpdateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@authentication_classes([authentication.TokenAuthentication])
+@authentication_classes([JWTAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 class ProfileMe(APIView):
 

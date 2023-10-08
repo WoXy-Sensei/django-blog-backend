@@ -1,7 +1,7 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from .models import Post, Category, Tag
 from rest_framework.views import APIView
-from rest_framework import authentication, permissions,status
+from rest_framework import permissions,status
 from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 from .serializers import *
@@ -13,7 +13,7 @@ from django.db.models import Q
 from .decorators import check_post_owner
 from .models import Comment
 from users.models import CustomUser
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class PostListView(ListAPIView):
     pagination_class = PageNumberPagination
@@ -65,7 +65,7 @@ class PostDetailBySlugView(APIView,HitCountMixin):
         return Response(serializer.data)
 
 
-@authentication_classes([authentication.TokenAuthentication])
+@authentication_classes([JWTAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 class PostCreateView(APIView):
 
@@ -78,7 +78,7 @@ class PostCreateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@authentication_classes([authentication.TokenAuthentication])
+@authentication_classes([JWTAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 class PostUpdateView(APIView):
 
@@ -93,7 +93,7 @@ class PostUpdateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@authentication_classes([authentication.TokenAuthentication])
+@authentication_classes([JWTAuthentication])
 @permission_classes([permissions.IsAuthenticated])
 class PostDeleteView(APIView):
 
